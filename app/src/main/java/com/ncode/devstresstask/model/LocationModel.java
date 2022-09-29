@@ -2,6 +2,10 @@ package com.ncode.devstresstask.model;
 
 public class LocationModel {
     String id;
+    String locName;
+    String lat;
+    String lng;
+    String address;
 
     public String getId() {
         return id;
@@ -11,10 +15,6 @@ public class LocationModel {
         this.id = id;
     }
 
-    String locName;
-    String locLatLang;
-    String address;
-
     public String getLocName() {
         return locName;
     }
@@ -23,12 +23,20 @@ public class LocationModel {
         this.locName = locName;
     }
 
-    public String getLocLatLang() {
-        return locLatLang;
+    public String getLat() {
+        return lat;
     }
 
-    public void setLocLatLang(String locLatLang) {
-        this.locLatLang = locLatLang;
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public String getAddress() {
@@ -39,10 +47,11 @@ public class LocationModel {
         this.address = address;
     }
 
-    public LocationModel(String id,String locName, String locLatLang, String address) {
-       this.id=id;
+    public LocationModel(String id, String locName, String lat, String lng, String address) {
+        this.id = id;
         this.locName = locName;
-        this.locLatLang = locLatLang;
+        this.lat = lat;
+        this.lng = lng;
         this.address = address;
     }
 }

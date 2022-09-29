@@ -1,5 +1,6 @@
 package com.ncode.devstresstask.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -37,12 +38,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.HOLDER
         return new HOLDER(ItemLocationListBinding.inflate(LayoutInflater.from(context),parent,false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull HOLDER holder, int position) {
         Log.d("onBindView", "onBindViewHolder:"+locationList.get(position).getLocName());
         holder.binding.txtLocName.setText(locationList.get(position).getLocName());
-        holder.binding.txtLocLatlng.setText(locationList.get(position).getLocLatLang());
-        Log.d("", "onBindViewHolder:"+(locationList.get(position).getLocLatLang()));
+        holder.binding.txtLocLatlng.setText("lat/lng"+locationList.get(position).getLat()+","+locationList.get(position).getLng());
+        Log.d("latitude", "onBindViewHolder:"+(locationList.get(position).getLat()));
 
         holder.binding.imgDel.setOnClickListener(view -> {
             deleteLocation.delete(locationList.get(position),position);

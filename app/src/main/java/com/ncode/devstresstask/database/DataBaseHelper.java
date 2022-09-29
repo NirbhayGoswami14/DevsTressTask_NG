@@ -24,7 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-       String createTable="Create table "+tbName+"(id INTEGER primary key autoincrement,loc_name TEXT,loc_LAT_LANG TEXT,loc_address TEXT)";
+       String createTable="Create table "+tbName+"(id INTEGER primary key autoincrement,loc_name TEXT,lat TEXT,lng TEXT,loc_address TEXT)";
        sqLiteDatabase.execSQL(createTable);
     }
 
@@ -33,12 +33,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("drop table if exists "+tbName);
     }
 
-    public void insertLocation(String name,String latlang,String address)
+    public void insertLocation(String name,String lat,String lng,String address)
     {
         SQLiteDatabase database=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("loc_name",name);
-        contentValues.put("loc_LAT_LANG",latlang);
+        contentValues.put("lat",lat);
+        contentValues.put("lng",lng);
         contentValues.put("loc_address",address);
         database.insert(tbName,null,contentValues);
     }
@@ -51,23 +52,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor=database.rawQuery("select * from "+tbName,null);
         while (cursor.moveToNext())
         {
-            String id,name,latlang,address;
+            String id,name,lat,lng,address;
             id=String.valueOf(cursor.getInt(cursor.getColumnIndex("id")));
             name=cursor.getString(cursor.getColumnIndex("loc_name"));
-            latlang=cursor.getString(cursor.getColumnIndex("loc_LAT_LANG"));
+            lat=cursor.getString(cursor.getColumnIndex("lat"));
+            lng=cursor.getString(cursor.getColumnIndex("lng"));
             address=cursor.getString(cursor.getColumnIndex("loc_address"));
-            locationModels.add(new LocationModel(id,name,latlang,address));
+            locationModels.add(new LocationModel(id,name,lat,lng,address));
         }
 
         return locationModels;
     }
 
-    public void updateLocation(String id,String name,String latlang,String address)
+    public void updateLocation(String id,String name,String lat,String lng, String address)
     {
         SQLiteDatabase database=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("loc_name",name);
-        contentValues.put("loc_LAT_LANG",latlang);
+        contentValues.put("lat",lat);
+        contentValues.put("lng",lng);
         contentValues.put("loc_address",address);
         database.update(tbName,contentValues,"id=?",new String[]{id});
 

@@ -63,11 +63,11 @@ public class AddLocationActivity extends AppCompatActivity {
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress());
                 if(MainActivity.flag==0)
                 {
-                    dataBaseHelper.insertLocation(place.getName(),String.valueOf(place.getLatLng()),place.getAddress());
+                    dataBaseHelper.insertLocation(place.getName(),String.valueOf(place.getLatLng().latitude),String.valueOf(place.getLatLng().longitude),place.getAddress());
                 }
                 else
                 {
-                    dataBaseHelper.updateLocation(loc_id,place.getName(),String.valueOf(place.getLatLng()),place.getAddress());
+                    dataBaseHelper.updateLocation(loc_id,place.getName(),String.valueOf(place.getLatLng().latitude),String.valueOf(place.getLatLng().longitude),place.getAddress());
                 }
                 Places.deinitialize();
                 finish();
